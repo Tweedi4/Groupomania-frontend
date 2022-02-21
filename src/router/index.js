@@ -5,24 +5,28 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 
 
+
 const routes = [
 
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    meta: { guest: true },
   },
 
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: { guest: true },
   },
 
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {requiresAuth: true},
   },
 
   {

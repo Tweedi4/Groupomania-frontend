@@ -1,24 +1,57 @@
 <template>
 <div class="container">
+    <div v-if="User">
     <img class="aviIcon">
-    <h1 class="pseudo">Pseudo</h1>
-    <section>
+    <h1 class="pseudo">{{User}}</h1>
+    </div>
+    <form>
         <div>
-            <input class="text-field-title" placeholder="Titre" />  
+            <input v-model="form.title" id="title" class="text-field-title" placeholder="Titre" type="text" required />  
         </div>
         <div>
-            <textarea class="text-field-text" placeholder="Ecrivez votre message..."></textarea>
+            <textarea v-model="form.content" id="content" class="text-field-text" placeholder="Ecrivez votre message..." required></textarea>
         </div>
         <div class="send-text">
             <img>
-            <button class="btn-send">Envoyer</button>
+            <button type="submit" class="btn-send">Envoyer</button>
         </div>
-    </section>
+    </form>
 </div>
+      <div class="container" v-if="Posts">
+        <ul>
+          <li v-for="post in Posts" :key="post.id">
+            <div id="post-div">
+              <p>{{post.title}}</p>
+              <p>{{post.content}}</p>
+              <p>Crée par: {{post.author.pseudo}}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        Mince! Aucun post pour le moment.
+      </div>
 </template>
 <script>
 
 export default {
+    data(){
+        return {
+            form: {
+            title: '',
+            content: '',
+            //image
+            }
+        };
+    },
+
+    computed: {
+
+    },
+
+    methods: {
+
+    }
 }
 </script>
 

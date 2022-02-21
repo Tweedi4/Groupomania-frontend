@@ -1,13 +1,37 @@
+import axios from 'axios';
+
+let baseURL = `http://localhost:3000/api`;
+
+
 export default {
-    signup(valeurEmail,valeurPseudo,valeurPassword){
-        return axios.post(`${baseUrl}/signup`,
-        {email:valeurEmail,pseudo:valeurPseudo,password:valeurPassword}
+    //AUTH
+    signup(emailUser,pseudoUser,passwordUser){
+        return axios.post(`${baseURL}/signup`,
+        { email:emailUser, pseudo:pseudoUser, password:passwordUser}
         );
     },
 
-    login(valeurEmail,valeurPassword){
-        return axios.post(`${baseUrl}/login`,
-        {email:valeurEmail,password:valeurPassword}
+    login(emailUser,passwordUser){
+        return axios.post(`${baseURL}/login`,
+        {email: emailUser, password: passwordUser}
         );
     },
+    //USER
+    getUserProfile(userId, token) {
+        return axios.get(`${baseURL}/users/${userId}`,
+        { headers : {Authorization: `Bearer ${token}`}}
+        );
+    },
+
+    deleteUser(userId, token) {
+        return axios.delete(`${baseURL}/users/${userId}`,
+        { data: {userId: userId}, headers: { Authorization: `Bearer ${token}`}}
+        );
+    },
+    updateUser(userId, token) {
+        return axios.put(`${baseURL}/users/${userId}`, 
+        { userId: userId},
+        { headers: {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`}}
+        );
+    }
 }
