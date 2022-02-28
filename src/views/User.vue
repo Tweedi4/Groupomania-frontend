@@ -4,7 +4,7 @@
     <section class="card__wrapper">
         <img class="aviIcon">
         <button class="aviButton">Choisir son avatar</button>
-        <h1>Pseudo</h1>
+        <h1>{{ getPseudoFromVueX }}</h1>
         <div>
             <input v-model="email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
             <input  v-model="pseudo" type="text" name="pseudo" maxlength="36" required placeholder="Pseudo" class="text-field"/>
@@ -16,12 +16,20 @@
 
 <script>
 import Header from '@/components/Header';
+import { mapState } from 'vuex';
 
 export default {
     components: {
         Header,
 
-    }
+    },
+
+    computed: {
+    ...mapState({
+      getTokenUserIdFromVueX: 'tokenUserFromVueX',
+      getPseudoUserFromVueX: 'pseudoUserFromVueX',
+      }),
+    },
 }
 </script>
 
@@ -75,11 +83,13 @@ export default {
 .text-field {
   width: 450px;
   height: 54px;
-  margin: 20px;
+  margin-top: 20px;
   padding: 5px;
   border-radius: 16px;
   background-color: #fff;
   border: none;
+  position: relative;
+  top: 50px;
 }
 
 .deleteButton {
@@ -89,7 +99,7 @@ export default {
     background-color: #fff;
     border: none;
     position: relative;
-    margin-top: 30px;
+    margin-top: 90px;
 }
 
 </style>
