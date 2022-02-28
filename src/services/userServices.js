@@ -18,18 +18,18 @@ export default {
     },
     //USER
     getUserProfile(userId, token) {
-        return axios.get(`${baseURL}/users/${userId}`,
+        return axios.get(`${baseURL}/user/${userId}`,
         { headers : {Authorization: `Bearer ${token}`}}
         );
     },
 
     deleteUser(userId, token) {
-        return axios.delete(`${baseURL}/users/${userId}`,
+        return axios.delete(`${baseURL}/user/${userId}`,
         { data: {userId: userId}, headers: { Authorization: `Bearer ${token}`}}
         );
     },
     updateUser(userId, token) {
-        return axios.put(`${baseURL}/users/${userId}`, 
+        return axios.put(`${baseURL}/user/${userId}`, 
         { userId: userId},
         { headers: {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`}}
         );

@@ -3,9 +3,9 @@
         <form>
             <img class="aviIcon">      
             <div>
-                <div>{{pseudo}}</div>
-                <h2>{{ title }}</h2>
-                <p>{{ content }}</p>
+                <div></div>
+                <h2></h2>
+                <p></p>
             </div>
         </form>        
         <div>
@@ -15,6 +15,8 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex';
+
 
 export default {
     name: "Post",
@@ -24,6 +26,16 @@ export default {
             content: '',
         };
     },
+
+    computed: {
+        ...mapState({
+            getTokenUserIdFromVueX: 'tokenUserFromVueX',
+
+            emailUserFromVueX: '',
+            pseudoUserFromVueX: '',
+        }),
+    },
+
     methods: {
     },
 }
@@ -34,8 +46,8 @@ export default {
 .container {
     width: 700px;
     height: auto;
-    margin: 65px 112px;
     padding: 52px 72px 56px 62px;
+    margin-top: 50px;
     border-radius: 79px;
     justify-content: center;
     background-color: #AB3535;
@@ -46,8 +58,9 @@ export default {
   border-radius: 108px;
   border: solid 1px white;
   position: relative;
-  right: 280px;
+  right: 230px;
   margin: 10px;
+  bottom: 20px;
 }
 .text-field-text {
     width: 500px;

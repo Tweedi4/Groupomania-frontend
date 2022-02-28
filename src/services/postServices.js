@@ -16,9 +16,9 @@ export default {
         );
     },
 
-    createPost(data, token){
+    createPost(formData, token){
         return axios.post(`${baseURL}/posts`,
-        data,
+        formData,
         { headers : {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`}}
         );
     },

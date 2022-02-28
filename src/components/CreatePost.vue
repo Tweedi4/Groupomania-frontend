@@ -1,55 +1,61 @@
 <template>
 <div class="container">
-    <div v-if="User">
+    <div>
     <img class="aviIcon">
-    <h1 class="pseudo">{{User}}</h1>
+    <h1 class="pseudo"></h1>
     </div>
-    <form>
+    <form @submit.prevent enctype="multipart/form-data">
         <div>
-            <input v-model="form.title" id="title" class="text-field-title" placeholder="Titre" type="text" required />  
+            <input v-model="title" id="title" class="text-field-title" placeholder="Ecrivez un titre" type="text" required />  
         </div>
         <div>
-            <textarea v-model="form.content" id="content" class="text-field-text" placeholder="Ecrivez votre message..." required></textarea>
+            <textarea v-model="content" id="content" class="text-field-text" placeholder="Ecrivez votre message..." required></textarea>
         </div>
         <div class="send-text">
             <img>
-            <button type="submit" class="btn-send">Envoyer</button>
+            <button @click="createPost()" type="submit" class="btn-send">Envoyer</button>
         </div>
     </form>
 </div>
-      <div class="container" v-if="Posts">
-        <ul>
-          <li v-for="post in Posts" :key="post.id">
-            <div id="post-div">
-              <p>{{post.title}}</p>
-              <p>{{post.content}}</p>
-              <p>Crée par: {{post.author.pseudo}}</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div v-else>
-        Mince! Aucun post pour le moment.
-      </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 
 export default {
     data(){
         return {
-            form: {
             title: '',
             content: '',
             //image
-            }
         };
     },
 
     computed: {
+        ...mapState({
+            getTokenUserFromVuex: 'tokenUserFromVueX',
+            getUserIdFromVueX: 'userIdFromVueX',
+        }),
 
     },
 
     methods: {
+        createPost() {
+            try {
+                let formData = new FormData()
+                formData.append('title', this.title);
+                formData.append('content', this.content);
+
+                this.$store.dispatch('createPost', {formData: formData, token: this.getTokenUserFromVuex });
+
+                this.title = '';
+                this.content = '';
+                //this.image_url= null;
+
+            } catch(err) {
+                console.log(err)
+            }
+
+        }  
 
     }
 }
@@ -59,8 +65,8 @@ export default {
 
 .container {
     width: 700px;
-    height: 500px;
-    margin: 65px 112px;
+    height: auto;
+    margin-top: 50px;
     padding: 52px 72px 56px 62px;
     border-radius: 79px;
     justify-content: center;
@@ -71,8 +77,9 @@ export default {
     width: 150px;
     height: 20px;
     position:relative;
-    bottom: 40px;
+    bottom: 50px;
     right: 175px;
+    margin-top:40px;
 }
 
 .text-field-text {
@@ -86,7 +93,8 @@ export default {
   border-radius: 108px;
   border: solid 1px white;
   position: relative;
-  right: 280px;
+  right: 230px;
+  bottom: 20px;
   margin: 10px;
 }
 

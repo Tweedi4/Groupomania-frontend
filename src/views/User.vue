@@ -29,27 +29,33 @@ export default {
 .card {
     display: flex;
     justify-content: center;
-    margin: 30px;
+    flex-direction:unset;
+
 }
 
 .card__wrapper {
-  width: 621px;
-  height: 809px;
+  width: 600px;
+  height: 500px;
   border-radius: 65px;
   background-color: #AB3535;
+  margin: 20px;
 }
 .aviIcon {
   width: 120px;
   height: 120px;
   border-radius: 108px;
   border: solid 1px white;
-  top: 60px;
+  position: relative;
+  top: 20px;
+  right: 80px;
 }
 
 .aviButton {
   align-items: bottom;
   margin: 20px;
   position: relative;
+  top: 100px;
+  right: 230px;
 }
 
 .textPseudo {
@@ -69,7 +75,7 @@ export default {
 .text-field {
   width: 450px;
   height: 54px;
-  margin: 10px;
+  margin: 20px;
   padding: 5px;
   border-radius: 16px;
   background-color: #fff;
@@ -78,12 +84,12 @@ export default {
 
 .deleteButton {
     width: 200px;
-    height: 50px;
+    height: 60px;
     border-radius: 33px;
     background-color: #fff;
     border: none;
     position: relative;
-    top: 100px;
+    margin-top: 30px;
 }
 
 </style>

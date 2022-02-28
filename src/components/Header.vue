@@ -1,5 +1,4 @@
 <template>  
-<header class="main-header">
     <div class="container"> 
         <img class="logo" src="../assets/icon-left-font-monochrome-black.png"> 
         <nav class="main-nav">
@@ -13,7 +12,6 @@
 			</ul>
         </nav>
     </div>
-</header>
 </template>
 <script>
 export default {
@@ -23,13 +21,15 @@ export default {
 
 <style scoped>
 body {
-	margin: 0;
+	display: flex;
 }
 
 .container {
-	width: 100%;
-	padding: 20px;
+	max-width: 100%;
     background: #AB3535;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .main-header .container {

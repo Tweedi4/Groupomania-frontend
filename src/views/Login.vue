@@ -39,7 +39,7 @@ export default {
 }
 
 .card__wrapper {
-  width: 621px;
+  width: 600px;
   height: 809px;
   border-radius: 65px;
   background-color: #AB3535;
