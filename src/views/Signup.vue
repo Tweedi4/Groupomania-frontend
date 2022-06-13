@@ -4,11 +4,11 @@
             <img class="logoIcon" src="../assets/icon.svg">
             <h3 class="card__title">Inscription</h3>
             <p class="card__subtitle">Vous avez déjà un compte? <span class="card__action">Se connecter</span></p>
-            <form method="post" action="" @submit.prevent="submit">
-              <input v-model="form.email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
-              <input v-model="form.pseudo" type="text" name="pseudo" maxlength="36" required placeholder="Pseudo" class="text-field"/>
-              <input v-model="form.password" type="password" name="password" maxlength="255" required placeholder="Password" class="text-field" /> 
-            <button class="btn-confirmation"  type="submit" >Créer un compte</button>
+            <form action="" @submit.prevent>
+              <input v-model="email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
+              <input v-model="pseudo" type="text" name="pseudo" maxlength="36" required placeholder="Pseudo" class="text-field"/>
+              <input v-model="password" type="password" name="password" maxlength="255" required placeholder="Password" class="text-field" /> 
+            <button @click="signup()" class="btn-confirmation"  type="submit" >Créer un compte</button>
             </form>
             <p v-if="showError" id="error">Cet utilisateur existe déjà</p>  
     </section>
@@ -16,31 +16,33 @@
 </template>
 
 <script>
-import { mapActions} from 'vuex';
+import userServices from "@/services/userServices.js";
 
 export default {
   name: 'Signup',
   data() {
     return {
-      form: {
-        email:"",
-        pseudo:"",
-        password:"",
-      },
-      showError: false
+        email:'',
+        pseudo:'',
+        password:'',
     };
   },
+
   methods: {
-...mapActions(["Signup"]),
-async submit() {
-  try {
-    await this.Signup(this.form);
-    this.$router.push("/");
-    this.showError = false
-  } catch (error) {
-    this.showError = true
+   async signup() {
+     try {
+       await userServices.signup(
+       this.email,
+       this.pseudo,
+       this.password,
+     );
+     this.$router.push("/login");  
+     } catch(error) {
+    console.log(error)
+    }
   }
-}
+
+
   }
 }
 </script>

@@ -4,16 +4,17 @@
             <img class="logoIcon" src="../assets/icon.svg">
             <h3 class="card__title">Connexion</h3>
             <p class="card__subtitle">Vous avez déjà un compte? <span class="card__action">Se connecter</span></p>
-            <form method="post" action="" @submit="login">
+            <form action="" @submit.prevent>
               <input v-model="email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
               <input v-model="password" type="password" name="password" maxlength="255" required placeholder="Password" class="text-field" />
-            <button class="btn-confirmation">Se connecter</button>   
+            <button @click="login()" class="btn-confirmation">Se connecter</button>   
             </form>        
     </section>
 </div>
 </template>
 
 <script>
+//import userServices from "@/services/userServices.js";
 
 export default {
   name: 'Login',
@@ -26,7 +27,18 @@ export default {
 
   methods: {
 
-  }
+   async login() {
+     try {
+      this.$store.dispatch('login', {email: this.email, password: this.password});
+      //pousser la gestion de session ici si besoin
+     this.$router.push("/");
+     } catch(error) {
+    console.log(error)
+    }
+  },
+
+
+}
 }
 </script>
 

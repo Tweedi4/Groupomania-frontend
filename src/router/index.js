@@ -12,21 +12,18 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    meta: { guest: true },
   },
 
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: { guest: true },
   },
 
   {
     path: '/',
     name: 'Home',
     component: Home,
-    meta: {requiresAuth: true},
   },
 
   {

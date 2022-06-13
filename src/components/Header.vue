@@ -9,13 +9,34 @@
 				<li>
 					<router-link to="user">Profile</router-link>
 				</li>
+				<button @click="logout">Logout</button>
 			</ul>
         </nav>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+	data(){
+		return {
 
+		}
+	},
+
+	methods: {
+		logout() {
+			localStorage.removeItem('token');
+			localStorage.removeItem('userId');
+			this.$router.push('/login')
+		}
+	},
+
+	computed:{
+		...mapState({
+			getTokenUserIdFromVueX: 'tokenUserFromVueX',
+			getUserIdFromVueX: 'userIdFromVueX',
+		})
+	}
 }
 </script>
 
@@ -55,6 +76,11 @@ body {
 .main-nav a {
 	display: inline-block;
 	padding: .5em 1.5em;
+}
+
+.fa-arrow-right-from-bracket {
+	size: 2cm;
+	color: black;
 }
 
 

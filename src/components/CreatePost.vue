@@ -2,14 +2,14 @@
 <div class="container">
     <div>
     <img class="aviIcon">
-    <h1 class="pseudo"></h1>
+    <p class="pseudo">{{getPseudoUserFromVueX}}</p>
     </div>
     <form @submit.prevent enctype="multipart/form-data">
         <div>
-            <input v-model="title" id="title" class="text-field-title" placeholder="Ecrivez un titre" type="text" required />  
+            <input v-model="title" id="title" class="text-field-title" placeholder="Ecrivez un titre" type="text"/>  
         </div>
         <div>
-            <textarea v-model="content" id="content" class="text-field-text" placeholder="Ecrivez votre message..." required></textarea>
+            <textarea v-model="content" id="content" class="text-field-text" placeholder="Ecrivez votre message..."></textarea>
         </div>
         <div class="send-text">
             <img>
@@ -32,8 +32,9 @@ export default {
 
     computed: {
         ...mapState({
-            getTokenUserFromVuex: 'tokenUserFromVueX',
             getUserIdFromVueX: 'userIdFromVueX',
+            getTokenUserFromVuex: 'tokenUserFromVueX',
+            getPseudoUserFromVueX: 'pseudoUserFromVueX',
         }),
 
     },
@@ -42,11 +43,12 @@ export default {
         createPost() {
             try {
                 let formData = new FormData()
+                formData.append('userId', this.getUserIdFromVueX);
                 formData.append('title', this.title);
                 formData.append('content', this.content);
-
+                //image
+                console.log(formData)
                 this.$store.dispatch('createPost', {formData: formData, token: this.getTokenUserFromVuex });
-
                 this.title = '';
                 this.content = '';
                 //this.image_url= null;
@@ -98,11 +100,14 @@ export default {
   margin: 10px;
 }
 
+
 .pseudo {
     position: relative;
     bottom: 110px;
-    right: 110px;
+    right: 90px;
     color: white;
+    font-size: 39px;
+    margin-left: 20px;
 }
 
 .btn-send {

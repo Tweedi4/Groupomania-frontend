@@ -4,8 +4,12 @@ import store from './store'
 import router from './router'
 import axios from "axios";
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:3000/api";
+
+
+axios.create({
+    baseURL: 'http://localhost:3000/api',
+  })
+
 
 
 createApp(App).use(store).use(router).mount('#app')
