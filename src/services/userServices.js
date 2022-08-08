@@ -16,14 +16,6 @@ export default {
         {email: emailUser, password: passwordUser}
         );
     },
-/*
-    getUserFromToken(token) {
-    
-        return axios.get(`${baseURL}/user/token/${token}`,
-        { data: {tokenNum: token}, headers : {Authorization: `Bearer ${token}`}}
-        );
-    },
-*/
 
     //USER
     getUserProfile(userId, token) {
@@ -37,9 +29,11 @@ export default {
         { data: {userId: userId}, headers: { Authorization: `Bearer ${token}`}}
         );
     },
-    updateUser(userId, token) {
+
+    //modif with formData
+    updateUser(userId, formData, token) {
         return axios.put(`${baseURL}/user/${userId}`, 
-        { userId: userId},
+        formData,
         { headers: {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`}}
         );
     }

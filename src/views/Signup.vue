@@ -3,7 +3,7 @@
     <section class="card__wrapper">
             <img class="logoIcon" src="../assets/icon.svg">
             <h3 class="card__title">Inscription</h3>
-            <p class="card__subtitle">Vous avez déjà un compte? <span class="card__action">Se connecter</span></p>
+            <p class="card__subtitle">Vous avez déjà un compte? <a href="http://localhost:8080/login" class="card__action">Se connecter</a></p>
             <form action="" @submit.prevent>
               <input v-model="email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
               <input v-model="pseudo" type="text" name="pseudo" maxlength="36" required placeholder="Pseudo" class="text-field"/>
@@ -53,6 +53,7 @@ export default {
 .card {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .card__wrapper {
@@ -108,5 +109,7 @@ export default {
   top: 80px;
   border: none;
 }
+
+
 
 </style>

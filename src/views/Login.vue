@@ -3,7 +3,7 @@
     <section class="card__wrapper">
             <img class="logoIcon" src="../assets/icon.svg">
             <h3 class="card__title">Connexion</h3>
-            <p class="card__subtitle">Vous avez déjà un compte? <span class="card__action">Se connecter</span></p>
+            <p class="card__subtitle">Vous avez déjà un compte? <a href="http://localhost:8080/signup" class="card__action">Se connecter</a></p>
             <form action="" @submit.prevent>
               <input v-model="email" type="email" name="email" maxlength="100" required placeholder="Adresse email" class="text-field" />
               <input v-model="password" type="password" name="password" maxlength="255" required placeholder="Password" class="text-field" />
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+//import { mapState } from 'vuex';
 //import userServices from "@/services/userServices.js";
 
 export default {
@@ -48,6 +49,7 @@ export default {
 .card {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .card__wrapper {

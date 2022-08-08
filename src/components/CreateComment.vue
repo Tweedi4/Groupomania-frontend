@@ -3,6 +3,7 @@
     <div class="create-comment">
         <textarea class="text-field-text" v-model="message" id="message" placeholder="Ecrivez un commentaire..."></textarea>
         <button @click="createComment()" type="submit" class="btn-send">Envoyer</button>
+        <hr class="solid">        
     </div>
 </form>
 </template>
@@ -29,7 +30,7 @@ export default {
     computed: {
         ...mapState({
             getUserIdFromVueX: 'userIdFromVueX',
-            getTokenUserFromVuex: 'tokenUserFromVueX',
+            getTokenUserIdFromVueX: 'tokenUserFromVueX',
         }),
 
     },
@@ -40,11 +41,7 @@ export default {
                 let formData = {'userId': this.getUserIdFromVueX,
                                 'postId': this.commentPostId,
                                 'message': this.message};
-                //image
-                //CreatePost.vueconsole.log("ca se passe ici !!!" + this.commentPostId)
-                console.log(formData)
-                //console.log("t'as eu le temps de tout voir ?" + this.getUserIdFromVueX + " " + this.message + " " + this.commentPostId)
-                this.$store.dispatch('createComment', {formData: formData, token: this.getTokenUserFromVuex });
+                this.$store.dispatch('createComment', {formData: formData, token: this.getTokenUserIdFromVueX });
                 this.message = '';
             } catch(err) {
             console.log(err)
@@ -62,6 +59,13 @@ export default {
 .text-field-text {
     width: 500px;
     height: 150px;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 </style>

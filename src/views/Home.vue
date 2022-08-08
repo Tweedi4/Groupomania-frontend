@@ -1,9 +1,11 @@
 <template>
     <Header/>
     <div>
-        <h3>Bonjour, {{getPseudoUserFromVueX}} </h3>
+        <h3 class="bonjour">Bonjour, {{getPseudoUserFromVueX}} </h3>
         <CreatePost/>
         <div v-if="getPostsListFromVueX === null">
+        </div>    
+        <div v-if="getCommentFromVueX === null">
         </div>
         <div v-else>
         <Posts v-for="post in getPostsListFromVueX" v-bind:key="post.id" v-bind:postId="post.id" />
@@ -37,20 +39,20 @@ export default {
     computed: {
         ...mapState({
             getPostsListFromVueX: 'postsListFromVueX',
-            getTokenUserFromVueX: 'tokenUserFromVueX',
+            getTokenUserIdFromVueX: 'tokenUserFromVueX',
             getUserIdFromVueX: 'userIdFromVueX',
             getPseudoUserFromVueX: 'pseudoUserFromVueX',
+            getCommentFromVueX: 'commentFromVueX',
+            getCommentsListFromVueX: 'commentsListFromVueX',
         })
     },
 
     async created() {
         //await this.$store.dispatch('getUserFromToken', { token: this.getTokenUserFromVueX});
-        await this.$store.dispatch('getUserProfile', { userId: this.getUserIdFromVueX, token: this.getTokenUserFromVueX});
+        await this.$store.dispatch('getUserProfile', { userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX});
         console.log(this.getUserIdFromVueX)
-        await this.$store.dispatch('getAllPosts', { token: this.getTokenUserFromVueX});
+        await this.$store.dispatch('getAllPosts', { token: this.getTokenUserIdFromVueX});
         console.log(this.getPostsListFromVueX);
-        //console.log("nouveau login et token : " + this.getTokenUserFromVueX);
-
     },
 
     methods:{
@@ -62,5 +64,10 @@ export default {
 </script>
 
 <style scoped>
+
+.bonjour {
+margin-top: 40px;
+}
+
 
 </style>

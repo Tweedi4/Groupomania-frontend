@@ -25,9 +25,9 @@ export default {
 
 	methods: {
 		logout() {
-			localStorage.removeItem('token');
-			localStorage.removeItem('userId');
-			this.$router.push('/login')
+			localStorage.clear();
+			this.$router.push('/login');
+			
 		}
 	},
 
@@ -83,5 +83,10 @@ body {
 	color: black;
 }
 
+a {
+	text-decoration:none;
+	box-shadow: none;
+	color: white;
+}
 
 </style>>

@@ -1,26 +1,26 @@
 <template>
     <div class="container">
-            <img class="aviIcon">      
+            <img class="aviIcon" :src="userData.image">      
             <div class="card-post">
                 <p class="user-pseudo">{{userData.pseudo}}</p>
                 <h1 class="title">{{postData.title}}</h1>
                 <p class="content">{{postData.content}}</p>
-                <button>Modifier</button>
-            </div>                
+                <img class="image-post" :src="postData.image_url">
+                <button v-if="getAdminUserFromVueX === 1" @click="deletePost(postData.id)" class="btn-send">Supprimer</button>
+            </div>               
             <div>
-                <CreateComment :commentPostId="postData.id"/>
+                <CreateComment :commentPostId="postData.id"/>  
                 <section class="check-comment">
-                    <div>
-                    <div>
-                        <img class="aviIcon">
-                    </div> 
-                    <p class="comment-user"></p>
-                    <h1 class="comment-message">{{commentData.message}}</h1>
+                    <div class="card-comment" :key="index" v-for="(comment, index) in commentData">
+                        <div>
+                            <img class="aviIcon" :src="comment.User.image">
+                        </div>                          
+                        <p class="user-pseudo">{{comment.User.pseudo}}</p>
+                        <h1 class="message">{{comment.message}}</h1>
+                        <button v-if="getAdminUserFromVueX === 1" @click="deleteComment(comment.id)" class="btn-send">Supprimer</button>
+                        <hr class="solid">  
                     </div>
-                    <button>Delete</button>
-                </section>
-                <ShowComments v-for="comment in getCommentFromVueX" v-bind:key="comment.id" v-bind:commentId="comment.id" />
-                <p>Liker</p>
+                </section>  
             </div>
             <div>
 
@@ -30,34 +30,36 @@
 <script>
 import { mapState } from 'vuex';
 import postServices from "@/services/postServices.js";
+import commentServices from "@/services/commentServices.js";
 
 import CreateComment from '@/components/CreateComment';
-import ShowComments from '@/components/ShowComments';
 
 
 export default {
     name: "Posts",
     components: {
-        ShowComments,
         CreateComment,
     },
     data() {
         return {
             postData: [],
             userData: [],
-
+            commentData: [],
             //likes
             //comments
-
             //image
-
         };
     },
     props: {
         postId: {
             type: Number,
             required: true
-        }
+        },
+
+        commentPostId: {
+            type: Number,
+            required: true
+        },
     },
 
     computed: {
@@ -66,19 +68,20 @@ export default {
             getUserIdFromVueX: 'userIdFromVueX',
             getPostsListFromVueX: 'postsListFromVueX',          
             getPseudoUserFromVueX: 'pseudoUserFromVueX',
-            getCommentsListFromVueX: 'commentsListFromVueX',
-            getCommentFromVueX: 'commentFromVueX',
-            //image
-
+            getAdminUserFromVueX:'adminUserFromVueX',
+            getPictureUserFromVueX: 'pictureUserFromVueX',
         }),
     },
 
     created() {
         this.getOnePost();
+        this.getAllCommentsFromPost();
     },
 
 
     methods: {
+
+//POSTS
 
         async getOnePost() {
             try {
@@ -94,21 +97,63 @@ export default {
             }
         },
 
-               getAllComments() {
-            try {
-                this.$store.dispatch('getAllCommentsFromPost', {postId: this.postId, token: this.getTokenUserFromVuex });                
+        
+        deletePost(postId) {
+            try {                
+                this.$store.dispatch('deletePost', {postId: postId, userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
+                this.$store.dispatch('getAllPosts', {token: this.getTokenUserIdFromVueX });
             } catch(err) {
                 console.log(err)
             }
-        }
+        },
+
+//COMMENTS
+
+        async getAllCommentsFromPost() {
+            try {
+                const response = await commentServices.getAllCommentsFromPost(
+                    this.postId,
+                    this.getTokenUserIdFromVueX,)
+                    this.commentData = response.data;              
+            } catch(err) {
+                console.log(err)
+            }
+        },
+
+         getOneComment() {
+            try {
+                this.$store.dispatch('getOneComment', {commentId: this.commentId, token: this.getTokenUserIdFromVueX });   
+            } catch(err) {
+                console.log(err)
+            }
+        },
+
+        deleteComment(commentId) {
+            try {
+                this.$store.dispatch('deleteComment', {commentId: commentId, userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
+                this.getAllCommentsFromPost();
+            } catch(err) {
+                console.log(err)
+            }
+        },
 
     },
+
+
+    
   
 }
 </script>
 
 
 <style scoped>
+
+hr.solid {
+  border-top: 3px solid #bbb;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
 .container {
     width: 700px;
     height: auto;
@@ -128,6 +173,16 @@ export default {
   margin: 10px;
   bottom: 20px;
 }
+
+.message {
+    font-size: 25px;
+    color: black;
+    margin: 10px;
+    position: relative;
+    bottom: 50px;
+    text-align: justify;
+}
+
 .text-field-text {
     width: 500px;
     height: 150px;
@@ -153,15 +208,25 @@ export default {
 }
 .content {
     font-size: 25px;
-    color: white;
-    margin: 20px;
+    color: black;
+    margin: 10px;
     position: relative;
     bottom: 50px;
+    text-align: justify;
 }
 .card-post {
     justify-content: center;
     height: auto;
     
+}
+
+.image-post {
+    justify-content: center;
+    text-align: justify;
+    width: 500px;
+    height: auto;
+    margin: auto;
+    display: flex;
 }
 </style>
 

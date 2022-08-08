@@ -10,7 +10,7 @@ export default {
         );
     },
     getOneComment(commentId,token) {
-        console.log("service : " + commentId)
+        //console.log("service : " + commentId)
         return axios.get(`${baseURL}/comments/${commentId}`,
         { headers : {Authorization: `Bearer ${token}`}}
         );
@@ -22,14 +22,13 @@ export default {
         { headers : {Authorization: `Bearer ${token}`}}
         );
     },
-/*
 
     deleteComment(commentId,userId,token) {
         return axios.delete(`${baseURL}/comments/${commentId}`,
         { data: {userId: userId}, headers: { Authorization: `Bearer ${token}`}}
         );
     },
-
+/*
     //updateComment
     updateComment(commentId,userId,token) {
         return axios.delete(`${baseURL}/comments/${commentId}`,

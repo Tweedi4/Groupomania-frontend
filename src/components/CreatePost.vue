@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div>
-    <img class="aviIcon">
+    <img class="aviIcon" :src="getPictureUserFromVueX">
     <p class="pseudo">{{getPseudoUserFromVueX}}</p>
     </div>
     <form @submit.prevent enctype="multipart/form-data">
@@ -10,6 +10,7 @@
         </div>
         <div>
             <textarea v-model="content" id="content" class="text-field-text" placeholder="Ecrivez votre message..."></textarea>
+            <input @change="preview" type="file" ref="file" name="image_url" id="image_url" />
         </div>
         <div class="send-text">
             <img>
@@ -26,15 +27,26 @@ export default {
         return {
             title: '',
             content: '',
-            //image
+            file: '',
+            imgTempUrl: null,
+            selectedFile: null,
         };
+    },
+
+    props: {
+        postId: {
+            type: Number,
+            required: true
+        }
     },
 
     computed: {
         ...mapState({
             getUserIdFromVueX: 'userIdFromVueX',
-            getTokenUserFromVuex: 'tokenUserFromVueX',
+            getTokenUserIdFromVueX: 'tokenUserFromVueX',
             getPseudoUserFromVueX: 'pseudoUserFromVueX',
+            getPostsListFromVueX: 'postsListFromVueX',
+            getPictureUserFromVueX: 'pictureUserFromVueX',
         }),
 
     },
@@ -46,17 +58,32 @@ export default {
                 formData.append('userId', this.getUserIdFromVueX);
                 formData.append('title', this.title);
                 formData.append('content', this.content);
-                //image
-                console.log(formData)
-                this.$store.dispatch('createPost', {formData: formData, token: this.getTokenUserFromVuex });
+                formData.append('image_url', this.selectedFile);
+                //console.log("t'as eu le temps de tout voir ?" + this.getUserIdFromVueX + " " + this.title + " " + this.content+ " " + this.selectedFile)
+                this.$store.dispatch('createPost', {formData: formData, token: this.getTokenUserIdFromVueX});
                 this.title = '';
                 this.content = '';
-                //this.image_url= null;
+                this.image_url= '';
 
             } catch(err) {
                 console.log(err)
             }
 
+        },
+        preview() {
+           this.selectedFile = event.target.files[0]
+           let input = event.target;
+           if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                this.imgTempUrl = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+           }
+        },
+        cancelPreview() {
+            document.getElementById('image_url').value = '';
+            this.imgTempUrl = null;
         }  
 
     }

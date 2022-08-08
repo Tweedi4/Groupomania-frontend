@@ -5,7 +5,6 @@ let baseURL = `http://localhost:3000/api`;
 export default {
     //POSTS
     getAllPosts(token){
-        //console.log("service : token ? " + token);
         const res = axios.get(`${baseURL}/posts`, 
         { headers : {Authorization: `Bearer ${token}`}}
         );
@@ -20,7 +19,7 @@ export default {
     },
 
     createPost(formData, token){
-        //console.log("service : " + formData)
+        //console.log('formdata : ' + JSON.stringify(formData));
         return axios.post(`${baseURL}/posts`,
         formData,
         { headers : {'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`}}
@@ -34,6 +33,7 @@ export default {
     },
 
     deletePost(postId, userId, token){
+        console.log(userId + ' : ' + token)
         return axios.delete(`${baseURL}/posts/${postId}`,
         { data: {userId: userId}, headers: { Authorization: `Bearer ${token}`}}
         );

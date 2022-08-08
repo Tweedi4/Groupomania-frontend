@@ -41,5 +41,13 @@ export default {
   color: black;
 }
 
+.btn-send {
+    width: 100px;
+    height: 50px;
+    border-radius: 16px;
+    margin: 20px;
+    border: none;
+}
+
 
 </style>
