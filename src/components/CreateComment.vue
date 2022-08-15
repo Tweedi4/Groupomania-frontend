@@ -25,7 +25,7 @@ export default {
         commentPostId: {
             type: Number,
             required: true
-        }
+        },
     },
     computed: {
         ...mapState({
@@ -40,7 +40,7 @@ export default {
             try {
                 let formData = {'userId': this.getUserIdFromVueX,
                                 'postId': this.commentPostId,
-                                'message': this.message};
+                                'message': this.message};                
                 this.$store.dispatch('createComment', {formData: formData, token: this.getTokenUserIdFromVueX });
                 this.message = '';
             } catch(err) {
@@ -66,6 +66,18 @@ hr.solid {
   display: flex;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+@media (max-width: 400px) {
+    .text-field-text {
+        width: 290px;
+        height: 100px;
+    }
+}
+@media (max-width: 800px) {
+    .text-field-text {
+        width: 290px;
+        height: 100px;
+    }
 }
 
 </style>

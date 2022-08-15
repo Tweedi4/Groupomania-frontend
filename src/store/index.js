@@ -69,22 +69,34 @@ export default createStore({
   },
   actions: {
     //USER
-
-    async login(context, payload){
-      try {
-        const response = await userServices.login(payload.email, payload.password);
-       localStorage.setItem('token', JSON.stringify(response.data.token));
-       localStorage.setItem('userId', JSON.stringify(response.data.userId));
-       context.commit('SET_USER_ID_FROM_VUEX', response.data.userId);
-       context.commit('SET_TOKEN_USER_FROM_VUEX', response.data.token);
-       context.commit('SET_EMAIL_USER_FROM_VUEX', response.data.email);
-       context.commit('SET_PSEUDO_USER_FROM_VUEX', response.data.pseudo);
-       context.commit('SET_PICTURE_USER_FROM_VUEX', response.data.image);
-       context.commit('SET_ADMIN_USER_FROM_VUEX', response.data.is_admin);
-       //console.log("store" + response.data) 
+    async signup(context, payload){
+      //try {
+        const response = await userServices.signup(payload.email, payload.pseudo, payload.password);
+        return response;
+       //console.log("store" + response) 
+/*
       } catch(err) {
         console.log(err.message);
       }
+*/      
+    },
+
+
+    async login(context, payload){
+      //try {
+        const response = await userServices.login(payload.email, payload.password);
+          localStorage.setItem('token', JSON.stringify(response.data.token));
+          localStorage.setItem('userId', JSON.stringify(response.data.userId));
+          context.commit('SET_USER_ID_FROM_VUEX', response.data.userId);
+          context.commit('SET_TOKEN_USER_FROM_VUEX', response.data.token);
+          context.commit('SET_EMAIL_USER_FROM_VUEX', response.data.email);
+          context.commit('SET_PSEUDO_USER_FROM_VUEX', response.data.pseudo);
+          context.commit('SET_PICTURE_USER_FROM_VUEX', response.data.image);
+          context.commit('SET_ADMIN_USER_FROM_VUEX', response.data.is_admin); 
+       //console.log("store" + response.data) 
+      /*} catch(err) {
+        //console.log(err);
+      }*/
     },
 
     
@@ -105,9 +117,7 @@ export default createStore({
         context.commit('SET_EMAIL_USER_FROM_VUEX', response.data.email);
         context.commit('SET_PSEUDO_USER_FROM_VUEX', response.data.pseudo);
         context.commit('SET_PICTURE_USER_FROM_VUEX', response.data.image);
-        context.commit('SET_ADMIN_USER_FROM_VUEX', response.data.is_admin);
-       console.log("store" + JSON.stringify(response.data)) 
-        
+        context.commit('SET_ADMIN_USER_FROM_VUEX', response.data.is_admin); 
       } catch(err) {
         console.log(err.message);
       }
@@ -151,7 +161,6 @@ export default createStore({
       try {
         const response = await postServices.deletePost(payload.postId, payload.userId, payload.token);
         console.log(response);
-        //context.commit('SET_POSTS_LIST_FROM_VUEX', response.data);
       } catch(err) {
         console.log(err.message);
       }

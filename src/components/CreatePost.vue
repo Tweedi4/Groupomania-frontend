@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div>
+    <div class="profilePicture">
     <img class="aviIcon" :src="getPictureUserFromVueX">
     <p class="pseudo">{{getPseudoUserFromVueX}}</p>
     </div>
@@ -10,10 +10,9 @@
         </div>
         <div>
             <textarea v-model="content" id="content" class="text-field-text" placeholder="Ecrivez votre message..."></textarea>
-            <input @change="preview" type="file" ref="file" name="image_url" id="image_url" />
+            <input @change="preview" type="file" ref="file" name="image_url" id="image_url" class="img_url" />
         </div>
         <div class="send-text">
-            <img>
             <button @click="createPost()" type="submit" class="btn-send">Envoyer</button>
         </div>
     </form>
@@ -102,6 +101,10 @@ export default {
     background-color: #AB3535;
 }
 
+.profilePicture {
+    position: relative;
+}
+
 .text-field-title {
     width: 150px;
     height: 20px;
@@ -117,24 +120,26 @@ export default {
 }
 
 .aviIcon {
-  width: 120px;
-  height: 120px;
-  border-radius: 108px;
-  border: solid 1px white;
-  position: relative;
-  right: 230px;
-  bottom: 20px;
-  margin: 10px;
+    width: 120px;
+    height: 120px;
+    border-radius: 108px;
+    border: solid 2px white;
+    position: relative;
+    right: 230px;
+    bottom: 20px;
+    margin: 10px;
 }
 
 
 .pseudo {
+    width: fit-content;
     position: relative;
     bottom: 110px;
-    right: 90px;
+    left: 120px;
     color: white;
     font-size: 39px;
     margin-left: 20px;
+    text-align: left;
 }
 
 .btn-send {
@@ -143,6 +148,92 @@ export default {
     border-radius: 16px;
     margin: 20px;
     border: none;
+}
+
+@media (max-width: 400px) {
+    .container {
+    width: 350px;
+    height: auto;
+    margin-top: 50px;
+    border-radius: 79px;
+    justify-content: center;
+    background-color: #AB3535;
+    align-content: center;
+    padding: 30px;
+    }
+.pseudo {
+    width: fit-content;
+    position: relative;
+    bottom: 110px;
+    left: -40px;
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+    text-align: left;
+}
+    .profilePicture {
+        position: relative;
+        left: 140px;
+        top: 20px;
+        width: 285px;
+    }
+        .aviIcon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .text-field-title {
+        right: 70px;
+        margin: 10px;
+    }
+
+    .text-field-text {
+        width: 290px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 800px) {
+    .container {
+    width: 350px;
+    height: auto;
+    margin-top: 50px;
+    border-radius: 79px;
+    justify-content: center;
+    background-color: #AB3535;
+    align-content: center;
+    padding: 30px;
+    }
+    .profilePicture {
+        position: relative;
+        left: 140px;
+        top: 20px;
+        width: 285px;
+    }
+    .pseudo {
+    width: fit-content;
+    position: relative;
+    bottom: 110px;
+    left: -40px;
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+    text-align: left;
+}
+        .aviIcon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .text-field-title {
+        right: 70px;
+        margin: 10px;
+    }
+
+    .text-field-text {
+        width: 290px;
+        height: 100px;
+    }
 }
 
 </style>

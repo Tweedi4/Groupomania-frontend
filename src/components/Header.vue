@@ -9,7 +9,8 @@
 				<li>
 					<router-link to="user">Profile</router-link>
 				</li>
-				<button @click="logout">Logout</button>
+
+				<button class="btn-logout" @click="logout">Logout</button>
 			</ul>
         </nav>
     </div>
@@ -87,6 +88,42 @@ a {
 	text-decoration:none;
 	box-shadow: none;
 	color: white;
+}
+.btn-logout {
+	width: 60px;
+	height: 60px;
+	border: none;
+	background:#AB3535;
+	color: white;
+}
+
+
+@media (max-width: 400px) {
+	.logo {
+		left: 25px;
+		top: 5px;
+	}
+	.main-nav ul {
+		flex-direction: row;
+	}
+	.main-nav a {
+		display: inline-block;
+		padding: .5em;
+	}
+}
+
+@media (max-width: 800px) {
+	.logo {
+		left: 25px;
+		top: 5px;
+	}
+	.main-nav ul {
+		flex-direction: row;
+	}
+	.main-nav a {
+		display: inline-block;
+		padding: .5em;
+	}
 }
 
 </style>>

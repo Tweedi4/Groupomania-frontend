@@ -1,13 +1,12 @@
 <template>
   <div id="app">
-    <Home />
+    <Home/>
       <router-view />
   </div>
 </template>
 
 
 <script>
-
 export default {
   name:'App',
   components: {
@@ -24,7 +23,6 @@ export default {
   methods: {
 
   },
-
 }
 
 </script>
@@ -47,6 +45,13 @@ export default {
     border-radius: 16px;
     margin: 20px;
     border: none;
+}
+@media (max-width: 400px) {
+
+.btn-send {
+    margin: 10px;
+}
+
 }
 
 

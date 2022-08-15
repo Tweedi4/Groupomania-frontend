@@ -7,9 +7,9 @@
         <button @click="updateUser()" class="aviButton">Mise à jour</button>
         <div class="pseudo">{{getPseudoUserFromVueX}}</div> 
         <div class="bioForm">
-            <label for="pseudo">New Pseudo</label>
-            <input v-model="pseudo" id="pseudo" type="text"/>
-            <label for="email">New Email</label>
+            <label for="pseudo">Pseudo</label>
+            <input v-model="newpseudo" id="newpseudo" type="text"/>
+            <label for="email">Email</label>
             <input v-model="email" id="email" type="text"/>
             <div>{{ getEmailUserFromVueX }}</div>
             <button @click="deleteUser()" class="deleteButton">Supprimer son compte</button>
@@ -31,6 +31,8 @@ export default {
   data() {
     return {
       file: '',
+      newpseudo: '',
+      email: '',
       imgTempUrl: null,
       selectedFile: null,
     }
@@ -61,8 +63,8 @@ updateUser() {
   try {
     let formData = new FormData()
     formData.append('userId', this.getUserIdFromVueX);
-    formData.append('pseudo', this.getPseudoUserFromVueX);
-    formData.append('email', this.getEmailUserFromVueX);
+    formData.append('newpseudo', this.newpseudo);
+    formData.append('email', this.email);
     formData.append('image_url', this.selectedFile);
     this.$store.dispatch('updateUser', {userId: this.getUserIdFromVueX, formData: formData, token:this.getTokenUserIdFromVueX});
     this.$store.dispatch('getUserProfile', {userId: this.getUserIdFromVueX, token:this.getTokenUserIdFromVueX});
@@ -124,7 +126,7 @@ preview() {
   width: 120px;
   height: 120px;
   border-radius: 108px;
-  border: solid 1px white;
+  border: solid 2px white;
   position: relative;
   flex-wrap: wrap;
   margin: 10px;
@@ -190,4 +192,75 @@ preview() {
     position: relative;
     top: 20px;
 }
+
+@media (max-width: 400px) {
+  .formStyle{
+    margin:20px;
+  }
+  .pseudo {
+    font-size: 25px;
+    margin: 20px;
+  }
+  .bioForm {
+    width: 200px;
+    position:relative;
+    bottom: 90px;
+    color: white;
+  }
+
+  .btn-select {
+    position: relative;
+    bottom:  100px;
+    right: 40px;
+    color: transparent;
+    font-size: x-small;
+  }
+  .aviButton {
+    align-items: bottom;
+    margin: 10px;
+    position: relative;
+    right: 105px;
+    bottom: 100px;
+    border: none;
+    border-radius: 5px;
+    padding: 4px;
+    font-size: x-small;
+  }
+}
+
+@media (max-width: 800px) {
+  .formStyle{
+    margin:20px;
+  }
+  .pseudo {
+    font-size: 30px;
+    margin: 20px;
+  }
+  .bioForm {
+    width: 200px;
+    position:relative;
+    bottom: 90px;
+    color: white;
+  }
+
+  .btn-select {
+    position: relative;
+    bottom:  100px;
+    right: 40px;
+    color: transparent;
+    font-size: x-small;
+  }
+  .aviButton {
+    align-items: bottom;
+    margin: 10px;
+    position: relative;
+    right: 105px;
+    bottom: 100px;
+    border: none;
+    border-radius: 5px;
+    padding: 4px;
+    font-size: x-small;
+  }
+}
+
 </style>

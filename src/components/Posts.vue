@@ -12,10 +12,10 @@
                 <CreateComment :commentPostId="postData.id"/>  
                 <section class="check-comment">
                     <div class="card-comment" :key="index" v-for="(comment, index) in commentData">
-                        <div>
-                            <img class="aviIcon" :src="comment.User.image">
-                        </div>                          
-                        <p class="user-pseudo">{{comment.User.pseudo}}</p>
+                        <div class="picture-pseudo">
+                            <img class="aviIcon" :src="comment.User.image">                        
+                            <p class="user-pseudo">{{comment.User.pseudo}}</p>
+                        </div> 
                         <h1 class="message">{{comment.message}}</h1>
                         <button v-if="getAdminUserFromVueX === 1" @click="deleteComment(comment.id)" class="btn-send">Supprimer</button>
                         <hr class="solid">  
@@ -139,8 +139,6 @@ export default {
 
     },
 
-
-    
   
 }
 </script>
@@ -159,6 +157,7 @@ hr.solid {
     height: auto;
     padding: 52px 72px 56px 62px;
     margin-top: 50px;
+    margin-bottom: 50px;
     border-radius: 79px;
     justify-content: center;
     background-color: #AB3535;
@@ -167,7 +166,7 @@ hr.solid {
   width: 120px;
   height: 120px;
   border-radius: 108px;
-  border: solid 1px white;
+  border: none;
   position: relative;
   right: 230px;
   margin: 10px;
@@ -189,7 +188,7 @@ hr.solid {
 }
 
 .user-pseudo {
-    width: 50px;
+    width: 100px;
     font-size: 39px;
     color: white;
     bottom: 120px;
@@ -213,6 +212,7 @@ hr.solid {
     position: relative;
     bottom: 50px;
     text-align: justify;
+    left:20px;
 }
 .card-post {
     justify-content: center;
@@ -227,6 +227,139 @@ hr.solid {
     height: auto;
     margin: auto;
     display: flex;
+}
+
+@media (max-width: 400px) {
+    .container {
+        width: 350px;
+        height: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        border-radius: 79px;
+        justify-content: center;
+        background-color: #AB3535;
+        align-content: center;
+        padding: 30px;
+    }
+    .aviIcon {
+        right: 90px;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        top:2px;
+    }
+    .text-field-title {
+        right: 70px;
+    }
+    .user-pseudo {
+        width: auto;
+        height: auto;
+        left: 90px;
+        margin-top: 30px;
+        margin-left: 30px;
+        position: relative;
+        font-size: 30px;
+        text-align: left;
+    }
+    .content {
+        font-size: 20px;
+        color: black;
+        margin: 10px;
+        position: relative;
+        bottom: 50px;
+        text-align: justify;
+        left:0;
+    }
+    .message {
+        font-size: 20px;
+        color: black;
+        margin: 10px;
+        position: relative;
+        bottom: 50px;
+        text-align: justify;
+    }
+    .image-post {
+        width: 270px;
+        height: auto;
+    }
+    .title {
+      font-size: 28px;
+      color: black;
+    }
+    .picture-pseudo {
+        position: relative;
+        left: 2px;
+        top: 20px;
+        width: 290px;
+        height: auto;
+    }
+}
+
+@media (max-width: 800px) {
+    .container {
+        width: 350px;
+        height: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        border-radius: 79px;
+        justify-content: center;
+        background-color: #AB3535;
+        align-content: center;
+        padding: 30px;
+    }
+    .aviIcon {
+        right: 90px;
+        position: relative;
+        width: 100px;
+        height: 100px;
+        top:2px;
+    }
+    .text-field-title {
+        right: 70px;
+    }
+    .user-pseudo {
+        width: auto;
+        height: auto;
+        left: 90px;
+        margin-top: 30px;
+        margin-left: 30px;
+        position: relative;
+        font-size: 30px;
+        text-align: left;
+    }
+
+    .content {
+        font-size: 20px;
+        color: black;
+        margin: 10px;
+        position: relative;
+        bottom: 50px;
+        text-align: justify;
+        left:0;
+    }
+    .message {
+        font-size: 20px;
+        color: black;
+        margin: 10px;
+        position: relative;
+        bottom: 50px;
+        text-align: justify;
+    }
+    .image-post {
+        width: 270px;
+        height: auto;
+    }
+    .title {
+      font-size: 28px;
+      color: black;
+    }
+    .picture-pseudo {
+        position: relative;
+        left: 2px;
+        top: 20px;
+        width: 290px;
+        height: auto;
+    }
 }
 </style>
 
