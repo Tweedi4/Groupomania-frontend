@@ -63,17 +63,16 @@ export default createStore({
     },
     SET_COMMENT_FROM_VUEX(state,payload) {
       state.commentFromVueX = payload;
-      //console.log("comment : " + JSON.stringify(payload));
     },
 
   },
+  
   actions: {
     //USER
     async signup(context, payload){
       //try {
         const response = await userServices.signup(payload.email, payload.pseudo, payload.password);
         return response;
-       //console.log("store" + response) 
 /*
       } catch(err) {
         console.log(err.message);
@@ -93,7 +92,6 @@ export default createStore({
           context.commit('SET_PSEUDO_USER_FROM_VUEX', response.data.pseudo);
           context.commit('SET_PICTURE_USER_FROM_VUEX', response.data.image);
           context.commit('SET_ADMIN_USER_FROM_VUEX', response.data.is_admin); 
-       //console.log("store" + response.data) 
       /*} catch(err) {
         //console.log(err);
       }*/
@@ -102,7 +100,6 @@ export default createStore({
     
     async deleteUser(context, payload){
       try {
-        console.log('token : ' + payload.token)
         const response = await userServices.deleteUser(payload.userId, payload.token);
         console.log(response);
       } catch(err) {
@@ -125,8 +122,7 @@ export default createStore({
 
     async updateUser(context, payload){
       try {
-        await userServices.updateUser(payload.userId, payload.formData, payload.token);
-        const response = await userServices.getUserProfile(payload.userId,payload.token);
+        const response = await userServices.updateUser(payload.userId, payload.formData, payload.token);
         context.commit('SET_EMAIL_USER_FROM_VUEX', response.data.email);
         context.commit('SET_PSEUDO_USER_FROM_VUEX', response.data.pseudo);
         context.commit('SET_PICTURE_USER_FROM_VUEX', response.data.image);
@@ -159,15 +155,16 @@ export default createStore({
 
     async deletePost(context, payload) {
       try {
-        const response = await postServices.deletePost(payload.postId, payload.userId, payload.token);
-        console.log(response);
+        await postServices.deletePost(payload.postId, payload.userId, payload.token);
+        const response = await postServices.getAllPosts(payload.token);
+        context.commit('SET_POSTS_LIST_FROM_VUEX', response.data);
       } catch(err) {
         console.log(err.message);
       }
     },
 
 /*
-    //add update
+    // Update Post
     async updatePost(context, payload) {
       try {
         await postServices.updatePost(payload.postId, payload.userId, payload.token);
@@ -178,13 +175,14 @@ export default createStore({
       }
     },
 */
+
     //C0MMENTS
 
     async createComment(context, payload) {
       try {
-        await commentServices.createComment(payload.formData, payload.token);
-        const response = await commentServices.getAllCommentsFromPost(payload.formData, payload.token);
-        context.commit('SET_COMMENTS_LIST_FROM_VUEX', response.data);
+        await commentServices.createComment(payload.formData, payload.token);        
+        return await commentServices.getAllCommentsFromPost(payload.formData.postId, payload.token);
+        //context.commit('SET_COMMENTS_LIST_FROM_VUEX', response.data);
       } catch(err) {
         console.log(err.message);
       }
@@ -200,7 +198,6 @@ export default createStore({
     },
     async getOneComment(context, payload) {
       try {
-        console.log("store : " + JSON.stringify(payload.commentId))
         const response = await commentServices.getOneComment(payload.commentId, payload.token);
         context.commit('SET_COMMENT_FROM_VUEX', response.data);
       } catch(err){
@@ -210,7 +207,7 @@ export default createStore({
 
     /*
     
-// add update 
+// Update Comment
     async updateComment(context, payload) {
       try {
         const response = await commentServices.updateComment(payload.commentId, payload.userId, payload.token);
@@ -219,12 +216,23 @@ export default createStore({
         console.log(err.message);
       }
     },
- */
-
+ 
+// Old Delete Comment
     async deleteComment(context, payload) {
       try {
         const response = await commentServices.deleteComment(payload.commentId, payload.userId, payload.token);
         context.commit('SET_COMMENT_FROM_VUEX', response.data);
+      } catch(err){
+        console.log(err.message);
+      }
+    },
+ */
+    
+      async deleteComment(context, payload) {
+      try {
+        await commentServices.deleteComment(payload.commentId, payload.userId, payload.token);
+        return await commentServices.getAllCommentsFromPost(payload.postId, payload.token)
+        //context.commit('SET_COMMENTS_LIST_FROM_VUEX', response.data);
       } catch(err){
         console.log(err.message);
       }

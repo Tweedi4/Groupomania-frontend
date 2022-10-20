@@ -10,7 +10,6 @@ export default {
         );
     },
     getOneComment(commentId,token) {
-        //console.log("service : " + commentId)
         return axios.get(`${baseURL}/comments/${commentId}`,
         { headers : {Authorization: `Bearer ${token}`}}
         );

@@ -1,24 +1,18 @@
-# frontend
+Projet 7 OC - Créez un réseau social d'entreprise
 
-## Project setup
-```
-npm install
-```
+Le projet consiste à construire un réseau social interne pour les employés de Groupomania. Le
+but de cet outil est de faciliter les interactions entre collègues. Le département RH de
+Groupomania a laissé libre cours à son imagination pour les fonctionnalités du réseau et a
+imaginé plusieurs briques pour favoriser les échanges entre collègues.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Installation
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Vous pouvez cloner ce repository, afin de récupérer les dossiers frontend de l'application.
 
-### Lints and fixes files
-```
-npm run lint
-```
+ Installez toutes les dépendances du projet
+    - npm install
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Lancement du server
+
+    - npm run serve

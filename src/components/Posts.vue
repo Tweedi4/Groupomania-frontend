@@ -9,7 +9,15 @@
                 <button v-if="getAdminUserFromVueX === 1" @click="deletePost(postData.id)" class="btn-send">Supprimer</button>
             </div>               
             <div>
-                <CreateComment :commentPostId="postData.id"/>  
+                <!-- CreateComment :commentPostId="postData.id"/ -->
+                <form @submit.prevent>
+    <div class="create-comment">
+        <textarea class="text-field-text" v-model="message" id="message" placeholder="Ecrivez un commentaire..."></textarea>
+        <button @click="createComment(postData.id)" type="submit" class="btn-send">Envoyer</button>
+        <hr class="solid">        
+    </div>
+</form>
+ 
                 <section class="check-comment">
                     <div class="card-comment" :key="index" v-for="(comment, index) in commentData">
                         <div class="picture-pseudo">
@@ -32,22 +40,20 @@ import { mapState } from 'vuex';
 import postServices from "@/services/postServices.js";
 import commentServices from "@/services/commentServices.js";
 
-import CreateComment from '@/components/CreateComment';
+//import CreateComment from '@/components/CreateComment';
 
 
 export default {
     name: "Posts",
-    components: {
+/*    components: {
         CreateComment,
-    },
+    },*/
     data() {
         return {
             postData: [],
             userData: [],
             commentData: [],
             //likes
-            //comments
-            //image
         };
     },
     props: {
@@ -70,6 +76,7 @@ export default {
             getPseudoUserFromVueX: 'pseudoUserFromVueX',
             getAdminUserFromVueX:'adminUserFromVueX',
             getPictureUserFromVueX: 'pictureUserFromVueX',
+            getCommentsListFromVueX: 'commentsListFromVueX',
         }),
     },
 
@@ -101,13 +108,25 @@ export default {
         deletePost(postId) {
             try {                
                 this.$store.dispatch('deletePost', {postId: postId, userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
-                this.$store.dispatch('getAllPosts', {token: this.getTokenUserIdFromVueX });
+                //this.$store.dispatch('getAllPosts', {token: this.getTokenUserIdFromVueX });
             } catch(err) {
                 console.log(err)
             }
         },
 
 //COMMENTS
+        async createComment(postId) {
+            try {
+                let formData = {'userId': this.getUserIdFromVueX,
+                                'postId': postId,
+                                'message': this.message};                
+                const response = await this.$store.dispatch('createComment', {formData: formData, token: this.getTokenUserIdFromVueX });
+                this.commentData = response.data;
+                this.message = '';
+            } catch(err) {
+            console.log(err)
+            }
+        }, 
 
         async getAllCommentsFromPost() {
             try {
@@ -128,19 +147,19 @@ export default {
             }
         },
 
+
         deleteComment(commentId) {
             try {
-                this.$store.dispatch('deleteComment', {commentId: commentId, userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
-                this.getAllCommentsFromPost();
+                const response = this.$store.dispatch('deleteComment', {commentId: commentId, userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
+                this.commentData = response.data;
+                //await this.getAllCommentsFromPost();
             } catch(err) {
                 console.log(err)
             }
         },
-
     },
-
-  
 }
+
 </script>
 
 

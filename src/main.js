@@ -10,6 +10,4 @@ axios.create({
     baseURL: 'http://localhost:3000/api',
   })
 
-
-
 createApp(App).use(store).use(router).mount('#app')

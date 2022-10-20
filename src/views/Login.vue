@@ -35,7 +35,6 @@ methods: {
       this.$store.dispatch('login', {email: this.email, password: this.password})
         .then(() => {this.$router.push("/");})
         .catch((error) => {
-          console.log(error.response.data.error)
           this.error = error.response.data.error;
           });
     },

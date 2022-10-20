@@ -52,12 +52,12 @@ export default {
     deleteUser() {
       try {
         this.$store.dispatch('deleteUser', {userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
+        this.$router.push("/signup");
       } catch(err) {
       console.log(err)
     }
 
     },
-// formData + check store + backend updateUser
 
 updateUser() {
   try {
@@ -67,7 +67,6 @@ updateUser() {
     formData.append('email', this.email);
     formData.append('image_url', this.selectedFile);
     this.$store.dispatch('updateUser', {userId: this.getUserIdFromVueX, formData: formData, token:this.getTokenUserIdFromVueX});
-    this.$store.dispatch('getUserProfile', {userId: this.getUserIdFromVueX, token:this.getTokenUserIdFromVueX});
     this.pseudo = '';
     this.email = '';
     this.image_url = '';

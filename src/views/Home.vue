@@ -5,7 +5,7 @@
         <CreatePost/>
         <div v-if="getPostsListFromVueX === null">
         </div>    
-        <div v-if="getCommentFromVueX === null">
+        <div v-if="getCommentListFromVueX === null">
         </div>
         <div v-else>
         <Posts v-for="post in getPostsListFromVueX" v-bind:key="post.id" v-bind:postId="post.id" />
@@ -42,17 +42,17 @@ export default {
             getTokenUserIdFromVueX: 'tokenUserFromVueX',
             getUserIdFromVueX: 'userIdFromVueX',
             getPseudoUserFromVueX: 'pseudoUserFromVueX',
-            getCommentFromVueX: 'commentFromVueX',
-            getCommentsListFromVueX: 'commentsListFromVueX',
+            //getCommentsListFromVueX: 'commentsListFromVueX',
         })
     },
 
     async created() {
-        //await this.$store.dispatch('getUserFromToken', { token: this.getTokenUserFromVueX});
         await this.$store.dispatch('getUserProfile', { userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX});
         console.log(this.getUserIdFromVueX)
         await this.$store.dispatch('getAllPosts', { token: this.getTokenUserIdFromVueX});
         console.log(this.getPostsListFromVueX);
+        //await this.$store.dispatch('getAllCommentsFromPost', { postId: postId, token: this.getTokenUserIdFromVueX});
+        //console.log(this.getCommentsListFromVueX);
     },
 
     methods:{

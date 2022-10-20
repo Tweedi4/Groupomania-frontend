@@ -58,7 +58,6 @@ export default {
                 formData.append('title', this.title);
                 formData.append('content', this.content);
                 formData.append('image_url', this.selectedFile);
-                //console.log("t'as eu le temps de tout voir ?" + this.getUserIdFromVueX + " " + this.title + " " + this.content+ " " + this.selectedFile)
                 this.$store.dispatch('createPost', {formData: formData, token: this.getTokenUserIdFromVueX});
                 this.title = '';
                 this.content = '';

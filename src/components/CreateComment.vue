@@ -36,17 +36,7 @@ export default {
     },
 
     methods: {
-        createComment() {
-            try {
-                let formData = {'userId': this.getUserIdFromVueX,
-                                'postId': this.commentPostId,
-                                'message': this.message};                
-                this.$store.dispatch('createComment', {formData: formData, token: this.getTokenUserIdFromVueX });
-                this.message = '';
-            } catch(err) {
-            console.log(err)
-            }
-        } 
+
     },
 
 }
