@@ -52,6 +52,7 @@ export default {
     deleteUser() {
       try {
         this.$store.dispatch('deleteUser', {userId: this.getUserIdFromVueX, token: this.getTokenUserIdFromVueX });
+        localStorage.clear();
         this.$router.push("/signup");
       } catch(err) {
       console.log(err)
